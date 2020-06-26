@@ -29,6 +29,12 @@ spec:
           httpGet:
             path: {{ .Values.probe.liveness }}
             port: {{ .Values.service.targetPort }}
+        env:
+          - name: REDIS_HOST
+            valueFrom:
+              secretKeyRef:
+                name: pulumi
+                key: redis-endpoint
         envFrom:
           - configMapRef:
               name: {{ .Values.name }}-env
